@@ -321,17 +321,33 @@ export default function ElMacunLanding() {
       {/* Hero Section */}
       <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div className="absolute inset-0 z-0" style={{ y: heroY, opacity: heroOpacity }}>
-          <div
-            className="w-full h-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.4) 50%, rgba(15, 23, 42, 0.8) 100%), url('/cinematic-aerial-landscape-drone-view-mountains-oc.jpg')`,
-            }}
-          />
+          {/* Video de fondo responsive */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            poster="/cinematic-aerial-landscape-drone-view-mountains-oc.jpg"
+          >
+            <source src="/hero-video-1080p.mp4" type="video/mp4" media="(min-width: 768px)" />
+            <source src="/hero-video-720p.mp4" type="video/mp4" media="(max-width: 767px)" />
+            {/* Fallback para navegadores que no soportan video */}
+            <div
+              className="w-full h-full bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.4) 50%, rgba(15, 23, 42, 0.8) 100%), url('/cinematic-aerial-landscape-drone-view-mountains-oc.jpg')`,
+              }}
+            />
+          </video>
+          {/* Overlay para mejorar legibilidad del texto */}
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-slate-900/40"></div>
         </motion.div>
 
         <div className="relative z-10 text-center text-white px-4 max-w-5xl mx-auto">
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2 }}>
+          {/* Fondo oscuro transparente para mejorar legibilidad */}
+          <div className="absolute inset-0 bg-black/30 rounded-2xl -m-8 p-8"></div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2 }} className="relative z-10">
             <motion.h1
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -776,36 +792,64 @@ export default function ElMacunLanding() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 relative overflow-hidden">
-        <motion.div className="absolute inset-0 z-0" style={{ y: ctaY }}>
-          <div
-            className="w-full h-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('/placeholder.svg?height=600&width=1920')`,
-            }}
-          />
-        </motion.div>
-
-        <div className="relative z-10 container mx-auto px-4 text-center text-white">
-          <motion.div initial="initial" whileInView="animate" viewport={{ once: true }} variants={staggerContainer}>
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-serif font-bold mb-6">
+      <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden">
+        {/* Background Video */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            poster="/cinematic-aerial-landscape-drone-view-mountains-oc.jpg"
+          >
+            <source src="/hero-video-720p.mp4" type="video/mp4" />
+            {/* Fallback para navegadores que no soportan video */}
+            <div
+              className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.6)), url('/cinematic-aerial-landscape-drone-view-mountains-oc.jpg')`,
+              }}
+            />
+          </video>
+          {/* Overlay para mejorar legibilidad del texto */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-slate-900/40"></div>
+        </div>
+        
+        {/* Content */}
+        <div className="relative z-10 text-center text-white px-4 max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-8"
+          >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight">
               ¿Listo para elevar tu proyecto?
-            </motion.h2>
-            <motion.p variants={fadeInUp} className="text-xl mb-8 max-w-2xl mx-auto">
+            </h2>
+            
+            <p className="text-lg md:text-xl lg:text-2xl max-w-4xl mx-auto leading-relaxed text-slate-200">
               Convierte tu visión en imágenes cinematográficas que perduren para siempre
-            </motion.p>
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-white border-white hover:bg-white hover:text-slate-900 bg-transparent"
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-4">
+              <AnimatedButton 
+                variant="outline" 
+                size="lg" 
+                className="min-w-[200px]"
               >
                 Agenda una llamada
-              </Button>
-              <Button size="lg" onClick={() => scrollToSection("contacto")}>
+              </AnimatedButton>
+              
+              <AnimatedButton 
+                size="lg" 
+                onClick={() => scrollToSection("contacto")}
+                className="min-w-[200px]"
+              >
                 Solicita un presupuesto
-              </Button>
-            </motion.div>
+              </AnimatedButton>
+            </div>
           </motion.div>
         </div>
       </section>
