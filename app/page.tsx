@@ -68,6 +68,8 @@ const scaleIn = {
 export default function ElMacunLanding() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const { scrollY } = useScroll()
   const heroY = useTransform(scrollY, [0, 800], [0, 300])
   const heroOpacity = useTransform(scrollY, [0, 400], [1, 0])
@@ -84,6 +86,55 @@ export default function ElMacunLanding() {
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
     setIsMenuOpen(false)
+  }
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    const formData = new FormData(e.target as HTMLFormElement)
+    const data = {
+      nombre: formData.get('nombre'),
+      email: formData.get('email'),
+      telefono: formData.get('telefono'),
+      proyecto: formData.get('proyecto'),
+      mensaje: formData.get('mensaje'),
+    }
+
+    try {
+      // Usar Web3Forms - servicio gratuito y confiable
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: 'ffcf2f8a-e020-4aac-a181-b6362d60575c', 
+          subject: `Nuevo mensaje de ${data.nombre} - Proyecto: ${data.proyecto}`,
+          from_name: data.nombre,
+          from_email: data.email,
+          phone: data.telefono,
+          project_type: data.proyecto,
+          message: data.mensaje,
+          to: 'mcanonesbet@gmail.com',
+          reply_to: data.email,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSubmitStatus('success')
+        ;(e.target as HTMLFormElement).reset()
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const services = [
@@ -943,54 +994,76 @@ export default function ElMacunLanding() {
                   <CardTitle>Envíanos un mensaje</CardTitle>
                   <CardDescription>Cuéntanos sobre tu proyecto y te responderemos en menos de 24 horas</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">Nombre *</label>
-                      <Input placeholder="Tu nombre completo" />
+                <CardContent>
+                  <form onSubmit={handleFormSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm font-medium mb-2 block">Nombre *</label>
+                        <Input name="nombre" placeholder="Tu nombre completo" required />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium mb-2 block">Email *</label>
+                        <Input name="email" type="email" placeholder="tu@email.com" required />
+                      </div>
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Email *</label>
-                      <Input type="email" placeholder="tu@email.com" />
+                      <label className="text-sm font-medium mb-2 block">Teléfono</label>
+                      <Input name="telefono" placeholder="+56 9 00000000" />
                     </div>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Teléfono</label>
-                    <Input placeholder="+56 9 00000000" />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Tipo de proyecto *</label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecciona el tipo de proyecto" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="cinematografico">Filmación Cinematográfica</SelectItem>
-                        <SelectItem value="fotografia">Fotografía Aérea</SelectItem>
-                        <SelectItem value="inspeccion">Inspección Técnica</SelectItem>
-                        <SelectItem value="evento">Cobertura de Evento</SelectItem>
-                        <SelectItem value="turismo">Turismo y Paisajes</SelectItem>
-                        <SelectItem value="comercial">Proyecto Comercial</SelectItem>
-                        <SelectItem value="otro">Otro</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Mensaje *</label>
-                    <Textarea
-                      placeholder="Cuéntanos sobre tu proyecto, fechas, ubicación y cualquier detalle relevante..."
-                      rows={5}
-                    />
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="privacy" />
-                    <label htmlFor="privacy" className="text-sm">
-                      Acepto la política de privacidad y el tratamiento de mis datos
-                    </label>
-                  </div>
-                  <Button className="w-full" size="lg">
-                    Enviar mensaje
-                  </Button>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Tipo de proyecto *</label>
+                      <Select name="proyecto" required>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecciona el tipo de proyecto" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="cinematografico">Filmación Cinematográfica</SelectItem>
+                          <SelectItem value="fotografia">Fotografía Aérea</SelectItem>
+                          <SelectItem value="inspeccion">Inspección Técnica</SelectItem>
+                          <SelectItem value="evento">Cobertura de Evento</SelectItem>
+                          <SelectItem value="turismo">Turismo y Paisajes</SelectItem>
+                          <SelectItem value="comercial">Proyecto Comercial</SelectItem>
+                          <SelectItem value="otro">Otro</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Mensaje *</label>
+                      <Textarea
+                        name="mensaje"
+                        placeholder="Cuéntanos sobre tu proyecto, fechas, ubicación y cualquier detalle relevante..."
+                        rows={5}
+                        required
+                      />
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="privacy" required />
+                      <label htmlFor="privacy" className="text-sm">
+                        Acepto la política de privacidad y el tratamiento de mis datos
+                      </label>
+                    </div>
+                    
+                    {submitStatus === 'success' && (
+                      <div className="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                        ¡Mensaje enviado correctamente! Te responderemos pronto.
+                      </div>
+                    )}
+                    
+                    {submitStatus === 'error' && (
+                      <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                        Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.
+                      </div>
+                    )}
+                    
+                    <Button 
+                      type="submit"
+                      className="w-full" 
+                      size="lg"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
+                    </Button>
+                  </form>
                 </CardContent>
               </Card>
             </motion.div>
