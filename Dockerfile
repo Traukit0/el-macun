@@ -61,28 +61,41 @@ RUN pnpm build
 # ===========================================
 # Production stage
 # ===========================================
-FROM base AS production
+FROM node:20-alpine AS production
+
+# Instalar dependencias del sistema necesarias
+RUN apk add --no-cache wget
 
 # Crear usuario no-root para seguridad
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copiar archivos de build
+# Configurar directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos de build desde builder stage
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
-# Cambiar ownership
+# Cambiar ownership de archivos
 RUN chown -R nextjs:nodejs /app
+
+# Cambiar a usuario no-root
 USER nextjs
 
 # Exponer puerto
 EXPOSE 3000
 
-# Variables de entorno
+# Variables de entorno para producción
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
 
 # Comando de producción
 CMD ["node", "server.js"]
