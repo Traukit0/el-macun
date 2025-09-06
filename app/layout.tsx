@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Playfair_Display } from "next/font/google"
+import { Inter, Manrope } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
@@ -10,10 +10,10 @@ const inter = Inter({
   variable: "--font-inter",
 })
 
-const playfair = Playfair_Display({
+const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-playfair",
+  variable: "--font-manrope",
 })
 
 export const metadata: Metadata = {
@@ -42,24 +42,18 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html lang="es" className={`${inter.variable} ${manrope.variable}`}>
       <head>
         <style>{`
 html {
   font-family: ${inter.style.fontFamily};
   --font-sans: ${inter.variable};
-  --font-serif: ${playfair.variable};
+  --font-serif: ${manrope.variable};
 }
         `}</style>
       </head>
       <body className="antialiased">
-        <ThemeProvider 
-          attribute="class" 
-          defaultTheme="dark" 
-          enableSystem 
-          disableTransitionOnChange
-          suppressHydrationWarning
-        >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>

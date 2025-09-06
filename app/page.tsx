@@ -29,27 +29,49 @@ import {
   ChevronDown,
 } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { AnimatedButton } from "@/components/animated-button"
+import { ModernCard } from "@/components/modern-card"
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 },
+  transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+}
+
+const fadeInLeft = {
+  initial: { opacity: 0, x: -60 },
+  animate: { opacity: 1, x: 0 },
+  transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+}
+
+const fadeInRight = {
+  initial: { opacity: 0, x: 60 },
+  animate: { opacity: 1, x: 0 },
+  transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
 }
 
 const staggerContainer = {
   animate: {
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
     },
   },
+}
+
+const scaleIn = {
+  initial: { opacity: 0, scale: 0.8 },
+  animate: { opacity: 1, scale: 1 },
+  transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
 }
 
 export default function ElMacunLanding() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showBackToTop, setShowBackToTop] = useState(false)
   const { scrollY } = useScroll()
-  const heroY = useTransform(scrollY, [0, 500], [0, 150])
-  const ctaY = useTransform(scrollY, [1000, 1500], [0, 100])
+  const heroY = useTransform(scrollY, [0, 800], [0, 300])
+  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0])
+  const ctaY = useTransform(scrollY, [1000, 1800], [0, 200])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -111,42 +133,39 @@ export default function ElMacunLanding() {
   const pricingPlans = [
     {
       name: "Básico",
-      price: "€299",
+      price: "$70.000",
       description: "Perfecto para proyectos pequeños",
       features: [
         "1 hora de vuelo",
-        "10 fotografías editadas",
-        "1 clip de 30 segundos",
+        "1 clip de 45 segundos",
         "Entrega en 48h",
         "Resolución 4K",
       ],
     },
     {
       name: "Profesional",
-      price: "€599",
+      price: "$100.000",
       description: "Ideal para eventos y comercial",
       features: [
         "2-3 horas de vuelo",
-        "30 fotografías editadas",
         "1 clip de 60-90 segundos",
         "Entrega en 72h",
         "Resolución 5K",
-        "Colorización básica",
+        "Edición básica",
       ],
       popular: true,
     },
     {
       name: "Cinemático",
-      price: "€999",
+      price: "$150.000",
       description: "Para producciones de alta gama",
       features: [
         "Media jornada completa",
-        "60 fotografías editadas",
         "1-2 clips profesionales",
         "Entrega en 5 días",
         "Resolución 5K+",
-        "Colorización avanzada",
-        "Música original",
+        "Edición avanzada",
+        "Música personalizada",
       ],
     },
     {
@@ -178,7 +197,7 @@ export default function ElMacunLanding() {
     {
       number: "03",
       title: "Edición y Color",
-      description: "Postproducción cinematográfica con colorización profesional",
+      description: "Postproducción cinematográfica con colorización profesional en DaVinci Resolve",
     },
     {
       number: "04",
@@ -217,187 +236,190 @@ export default function ElMacunLanding() {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      <nav className="fixed top-0 w-full z-50 glass-nav backdrop-blur-xl border-b border-slate-700/50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="text-2xl font-serif font-bold text-primary">El Macún</div>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-2xl font-serif font-bold text-white"
+          >
+            El Macún
+          </motion.div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection("inicio")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Inicio
-            </button>
-            <button
-              onClick={() => scrollToSection("servicios")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Servicios
-            </button>
-            <button
-              onClick={() => scrollToSection("portafolio")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Portafolio
-            </button>
-            <button
-              onClick={() => scrollToSection("planes")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Planes
-            </button>
-            <button
-              onClick={() => scrollToSection("proceso")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Proceso
-            </button>
-            <button
-              onClick={() => scrollToSection("nosotros")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Nosotros
-            </button>
-            <button
-              onClick={() => scrollToSection("contacto")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Contacto
-            </button>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="hidden md:flex items-center space-x-8"
+          >
+            {["inicio", "servicios", "portafolio", "planes", "proceso", "nosotros", "contacto"].map(
+              (section, index) => (
+                <motion.button
+                  key={section}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => scrollToSection(section)}
+                  className="text-white hover:text-cyan-300 transition-all duration-300 font-medium capitalize relative group"
+                >
+                  {section}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-sky-600 transition-all duration-300 group-hover:w-full"></span>
+                </motion.button>
+              ),
+            )}
+          </motion.div>
 
-          <div className="flex items-center space-x-4">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex items-center space-x-4"
+          >
             <ThemeToggle />
-            <Button onClick={() => scrollToSection("contacto")} className="hidden md:inline-flex">
-              Cotiza tu vuelo
-            </Button>
-            <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <div className="hidden md:block">
+              <AnimatedButton onClick={() => scrollToSection("contacto")}>Cotiza tu vuelo</AnimatedButton>
+            </div>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="md:hidden p-2 rounded-lg hover:bg-slate-700/50 transition-colors text-white"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
               {isMenuOpen ? <X /> : <Menu />}
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-background border-t border-border">
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden glass-nav border-t border-slate-700/50"
+          >
             <div className="container mx-auto px-4 py-4 space-y-4">
-              <button
-                onClick={() => scrollToSection("inicio")}
-                className="block text-foreground hover:text-primary transition-colors"
-              >
-                Inicio
-              </button>
-              <button
-                onClick={() => scrollToSection("servicios")}
-                className="block text-foreground hover:text-primary transition-colors"
-              >
-                Servicios
-              </button>
-              <button
-                onClick={() => scrollToSection("portafolio")}
-                className="block text-foreground hover:text-primary transition-colors"
-              >
-                Portafolio
-              </button>
-              <button
-                onClick={() => scrollToSection("planes")}
-                className="block text-foreground hover:text-primary transition-colors"
-              >
-                Planes
-              </button>
-              <button
-                onClick={() => scrollToSection("proceso")}
-                className="block text-foreground hover:text-primary transition-colors"
-              >
-                Proceso
-              </button>
-              <button
-                onClick={() => scrollToSection("nosotros")}
-                className="block text-foreground hover:text-primary transition-colors"
-              >
-                Nosotros
-              </button>
-              <button
-                onClick={() => scrollToSection("contacto")}
-                className="block text-foreground hover:text-primary transition-colors"
-              >
-                Contacto
-              </button>
-              <Button onClick={() => scrollToSection("contacto")} className="w-full">
+              {["inicio", "servicios", "portafolio", "planes", "proceso", "nosotros", "contacto"].map((section) => (
+                <motion.button
+                  key={section}
+                  whileHover={{ x: 10 }}
+                  onClick={() => scrollToSection(section)}
+                  className="block text-white hover:text-cyan-300 transition-colors capitalize font-medium"
+                >
+                  {section}
+                </motion.button>
+              ))}
+              <AnimatedButton onClick={() => scrollToSection("contacto")} className="w-full">
                 Cotiza tu vuelo
-              </Button>
+              </AnimatedButton>
             </div>
-          </div>
+          </motion.div>
         )}
       </nav>
 
       {/* Hero Section */}
       <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden">
-        <motion.div className="absolute inset-0 z-0" style={{ y: heroY }}>
+        <motion.div className="absolute inset-0 z-0" style={{ y: heroY, opacity: heroOpacity }}>
           <div
             className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.4)), url('/placeholder.svg?height=1080&width=1920')`,
+              backgroundImage: `linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.4) 50%, rgba(15, 23, 42, 0.8) 100%), url('/cinematic-aerial-landscape-drone-view-mountains-oc.jpg')`,
             }}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-slate-900/40"></div>
         </motion.div>
 
-        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6">El Macún</h1>
-            <p className="text-xl md:text-2xl mb-4 text-gray-200">Filmación aérea profesional con dron</p>
-            <p className="text-lg md:text-xl mb-8 text-gray-300 max-w-2xl mx-auto">
-              Imágenes que transmiten calma, belleza y grandeza natural
-            </p>
+        <div className="relative z-10 text-center text-white px-4 max-w-5xl mx-auto">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2 }}>
+            <motion.h1
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-6xl md:text-8xl font-serif font-bold mb-6 text-white drop-shadow-2xl animate-glow"
+            >
+              El Macún
+            </motion.h1>
 
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <Badge variant="secondary" className="text-sm px-4 py-2">
-                4K/5K
-              </Badge>
-              <Badge variant="secondary" className="text-sm px-4 py-2">
-                Operador Certificado
-              </Badge>
-              <Badge variant="secondary" className="text-sm px-4 py-2">
-                Postproducción Incluida
-              </Badge>
-            </div>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-2xl md:text-3xl mb-4 text-gray-100 font-light tracking-wide drop-shadow-lg"
+            >
+              Filmación aérea profesional con dron
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                onClick={() => scrollToSection("portafolio")}
-                variant="outline"
-                className="text-white border-white hover:bg-white hover:text-slate-900"
-              >
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="text-lg md:text-xl mb-8 text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-lg"
+            >
+              Imágenes que transmiten calma, belleza y grandeza natural con la más alta calidad cinematográfica
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+              className="flex flex-wrap justify-center gap-4 mb-12"
+            >
+              {["4K/5K", "Operador Certificado", "Postproducción Incluida"].map((badge, index) => (
+                <motion.div
+                  key={badge}
+                  whileHover={{ scale: 1.05 }}
+                  className="bg-slate-800/80 backdrop-blur-sm px-6 py-3 rounded-full text-sm font-medium border border-cyan-500/50 text-white shadow-lg"
+                >
+                  {badge}
+                </motion.div>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.5 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center"
+            >
+              <AnimatedButton variant="outline" size="lg" onClick={() => scrollToSection("portafolio")}>
                 Ver Portafolio
-              </Button>
-              <Button size="lg" onClick={() => scrollToSection("contacto")}>
+              </AnimatedButton>
+              <AnimatedButton size="lg" onClick={() => scrollToSection("contacto")}>
                 Cotiza tu vuelo
-              </Button>
-            </div>
+              </AnimatedButton>
+            </motion.div>
           </motion.div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
-          <ChevronDown className="w-6 h-6" />
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 2 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-float"
+        >
+          <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}>
+            <ChevronDown className="w-8 h-8 drop-shadow-lg" />
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Services Section */}
-      <section id="servicios" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
+      <section id="servicios" className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-muted/30 to-background"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial="initial"
             whileInView="animate"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-serif font-bold mb-6">
+            <motion.h2 variants={fadeInUp} className="text-5xl md:text-6xl font-serif font-bold mb-8 gradient-text">
               Lo que hacemos
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <motion.p variants={fadeInUp} className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Servicios especializados en filmación y fotografía aérea con la más alta calidad cinematográfica
             </motion.p>
           </motion.div>
@@ -405,30 +427,36 @@ export default function ElMacunLanding() {
           <motion.div
             initial="initial"
             whileInView="animate"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
             variants={staggerContainer}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {services.map((service, index) => (
               <motion.div key={index} variants={fadeInUp}>
-                <Card className="h-full hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader>
-                    <div className="text-primary mb-4">{service.icon}</div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base">{service.description}</CardDescription>
-                  </CardContent>
-                </Card>
+                <ModernCard className="h-full p-8 group cursor-pointer">
+                  <motion.div whileHover={{ scale: 1.1, rotate: 5 }} className="text-cyan-400 mb-6 inline-block">
+                    {service.icon}
+                  </motion.div>
+                  <h3 className="text-xl font-bold mb-4 text-white group-hover:gradient-text transition-all duration-300">
+                    {service.title}
+                  </h3>
+                  <p className="text-slate-300 leading-relaxed">{service.description}</p>
+                </ModernCard>
               </motion.div>
             ))}
           </motion.div>
 
-          <div className="text-center mt-12">
-            <Button onClick={() => scrollToSection("planes")} variant="outline" size="lg">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-center mt-16"
+          >
+            <AnimatedButton variant="outline" size="lg" onClick={() => scrollToSection("planes")}>
               Ver paquetes y precios
-            </Button>
-          </div>
+            </AnimatedButton>
+          </motion.div>
         </div>
       </section>
 
@@ -821,15 +849,15 @@ export default function ElMacunLanding() {
                 <div className="space-y-4">
                   <div className="flex items-center">
                     <Phone className="w-5 h-5 text-primary mr-3" />
-                    <span>+34 600 000 000</span>
+                    <span>+56 9 72172846</span>
                   </div>
                   <div className="flex items-center">
                     <Mail className="w-5 h-5 text-primary mr-3" />
-                    <span>hola@elmacun.com</span>
+                    <span>mcanonesbet@gmail.com</span>
                   </div>
                   <div className="flex items-center">
                     <MapPin className="w-5 h-5 text-primary mr-3" />
-                    <span>Área de cobertura: Península Ibérica</span>
+                    <span>Área de cobertura: sur de Chile</span>
                   </div>
                 </div>
               </div>
@@ -917,15 +945,15 @@ export default function ElMacunLanding() {
             <div>
               <h4 className="font-semibold mb-4">Contacto</h4>
               <ul className="space-y-2 text-muted-foreground">
-                <li>+34 600 000 000</li>
-                <li>hola@elmacun.com</li>
-                <li>Península Ibérica</li>
+                <li>+56 9 72172846</li>
+                <li>mcanonesbet@gmail.com</li>
+                <li>Sur de Chile</li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-muted-foreground text-sm">© 2024 El Macún. Todos los derechos reservados.</p>
+            <p className="text-muted-foreground text-sm">© 2025 El Macún. Todos los derechos reservados.</p>
             <div className="flex space-x-6 text-sm text-muted-foreground mt-4 md:mt-0">
               <button>Términos de Servicio</button>
               <button>Política de Privacidad</button>
