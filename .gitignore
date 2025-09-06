@@ -25,3 +25,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# archivos locales para desarrollo
+start-dev.bat
+start-dev.ps1

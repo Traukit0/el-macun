@@ -1,0 +1,48 @@
+services:
+  # Servicio principal de la aplicación
+  el-macun-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    container_name: el-macun-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # Montar código fuente para hot reload
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    networks:
+      - el-macun-network
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+  # Servicio para producción (comentado por defecto)
+  # el-macun-prod:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     target: production
+  #   container_name: el-macun-prod
+  #   ports:
+  #     - "3001:3000"
+  #   environment:
+  #     - NODE_ENV=production
+  #     - NEXT_TELEMETRY_DISABLED=1
+  #   networks:
+  #     - el-macun-network
+  #   restart: unless-stopped
+
+networks:
+  el-macun-network:
+    driver: bridge
+
+volumes:
+  node_modules:
+  next_cache:
+

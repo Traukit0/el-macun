@@ -6,7 +6,11 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "docker:dev": "docker-compose up --build",
+    "docker:prod": "docker-compose -f docker-compose.yml up --build el-macun-prod",
+    "docker:down": "docker-compose down",
+    "docker:clean": "docker-compose down -v --rmi all"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
