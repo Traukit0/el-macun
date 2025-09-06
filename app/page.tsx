@@ -336,7 +336,7 @@ export default function ElMacunLanding() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className="text-6xl md:text-8xl font-serif font-bold mb-6 text-white drop-shadow-2xl animate-glow"
+              className="text-6xl md:text-8xl font-serif font-bold mb-6 text-white drop-shadow-2xl"
             >
               El Macún
             </motion.h1>
@@ -437,7 +437,7 @@ export default function ElMacunLanding() {
                   <motion.div whileHover={{ scale: 1.1, rotate: 5 }} className="text-cyan-400 mb-6 inline-block">
                     {service.icon}
                   </motion.div>
-                  <h3 className="text-xl font-bold mb-4 text-white group-hover:gradient-text transition-all duration-300">
+                  <h3 className="text-xl font-bold mb-4 text-white group-hover:gradient-text transition-colors duration-300">
                     {service.title}
                   </h3>
                   <p className="text-slate-300 leading-relaxed">{service.description}</p>
@@ -479,11 +479,31 @@ export default function ElMacunLanding() {
           </motion.div>
 
           <Tabs defaultValue="Naturaleza" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-12">
-              <TabsTrigger value="Naturaleza">Naturaleza</TabsTrigger>
-              <TabsTrigger value="Ciudades">Ciudades</TabsTrigger>
-              <TabsTrigger value="Eventos">Eventos</TabsTrigger>
-              <TabsTrigger value="Comercial">Comercial</TabsTrigger>
+            <TabsList className="flex w-full mb-12 bg-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-5 shadow-xl gap-4 h-20 items-center justify-center">
+              <TabsTrigger 
+                value="Naturaleza"
+                className="relative transition-all duration-300 hover:bg-cyan-500/20 hover:text-cyan-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-sky-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-cyan-500/50 rounded-xl font-semibold text-lg h-full flex items-center justify-center flex-1 min-w-0"
+              >
+                Naturaleza
+              </TabsTrigger>
+              <TabsTrigger 
+                value="Ciudades"
+                className="relative transition-all duration-300 hover:bg-cyan-500/20 hover:text-cyan-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-sky-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-cyan-500/50 rounded-xl font-semibold text-lg h-full flex items-center justify-center flex-1 min-w-0"
+              >
+                Ciudades
+              </TabsTrigger>
+              <TabsTrigger 
+                value="Eventos"
+                className="relative transition-all duration-300 hover:bg-cyan-500/20 hover:text-cyan-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-sky-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-cyan-500/50 rounded-xl font-semibold text-lg h-full flex items-center justify-center flex-1 min-w-0"
+              >
+                Eventos
+              </TabsTrigger>
+              <TabsTrigger 
+                value="Comercial"
+                className="relative transition-all duration-300 hover:bg-cyan-500/20 hover:text-cyan-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-sky-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-cyan-500/50 rounded-xl font-semibold text-lg h-full flex items-center justify-center flex-1 min-w-0"
+              >
+                Comercial
+              </TabsTrigger>
             </TabsList>
 
             {["Naturaleza", "Ciudades", "Eventos", "Comercial"].map((category) => (
@@ -499,7 +519,7 @@ export default function ElMacunLanding() {
                     .filter((item) => item.category === category)
                     .map((item, index) => (
                       <motion.div key={index} variants={fadeInUp}>
-                        <Card className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300">
+                        <Card className="overflow-hidden group cursor-pointer hover:shadow-cyan-500/20 transition-all duration-300">
                           <div className="relative overflow-hidden">
                             <img
                               src={item.image || "/placeholder.svg"}
@@ -550,8 +570,16 @@ export default function ElMacunLanding() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
             {pricingPlans.map((plan, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <Card className={`h-full relative ${plan.popular ? "border-primary shadow-lg" : ""}`}>
+              <motion.div 
+                key={index} 
+                variants={fadeInUp}
+                whileHover={{
+                  rotateX: 2,
+                  rotateY: -2,
+                  transition: { type: "spring", stiffness: 200, damping: 15 },
+                }}
+              >
+                <Card className={`h-full relative rounded-2xl bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-sm border border-slate-700/50 shadow-xl hover:shadow-cyan-500/20 transition-all duration-300 ${plan.popular ? "border-primary shadow-lg" : ""}`}>
                   {plan.popular && (
                     <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2">Más Popular</Badge>
                   )}
@@ -656,14 +684,36 @@ export default function ElMacunLanding() {
               especializamos en crear contenido visual que perdura en el tiempo.
             </motion.p>
             <motion.div variants={fadeInUp} className="flex justify-center space-x-6">
-              <Button variant="outline" size="lg">
-                <Youtube className="w-5 h-5 mr-2" />
-                YouTube
-              </Button>
-              <Button variant="outline" size="lg">
-                <Instagram className="w-5 h-5 mr-2" />
-                Instagram
-              </Button>
+              <motion.div
+                whileHover={{ 
+                  scale: 1.05,
+                  transition: { duration: 0.2, ease: "easeOut" }
+                }}
+              >
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="!border-cyan-500/50 !text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!border-cyan-500 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300"
+                >
+                  <Youtube className="w-5 h-5 mr-2" />
+                  YouTube
+                </Button>
+              </motion.div>
+              <motion.div
+                whileHover={{ 
+                  scale: 1.05,
+                  transition: { duration: 0.2, ease: "easeOut" }
+                }}
+              >
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="!border-cyan-500/50 !text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!border-cyan-500 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300"
+                >
+                  <Instagram className="w-5 h-5 mr-2" />
+                  Instagram
+                </Button>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
@@ -865,11 +915,11 @@ export default function ElMacunLanding() {
               <div>
                 <h4 className="text-lg font-semibold mb-4">Síguenos</h4>
                 <div className="flex space-x-4">
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="!border-cyan-500/50 !text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!border-cyan-500 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300">
                     <Instagram className="w-4 h-4 mr-2" />
                     Instagram
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="!border-cyan-500/50 !text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!border-cyan-500 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300">
                     <Youtube className="w-4 h-4 mr-2" />
                     YouTube
                   </Button>
@@ -897,10 +947,10 @@ export default function ElMacunLanding() {
                 Filmación aérea profesional que transmite calma, belleza y grandeza natural.
               </p>
               <div className="flex space-x-4">
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="!text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300">
                   <Instagram className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="!text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300">
                   <Youtube className="w-4 h-4" />
                 </Button>
               </div>
