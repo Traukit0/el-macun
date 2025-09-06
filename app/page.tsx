@@ -798,7 +798,7 @@ export default function ElMacunLanding() {
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-2 block">Teléfono</label>
-                    <Input placeholder="+34 600 000 000" />
+                    <Input placeholder="+56 9 00000000" />
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-2 block">Tipo de proyecto *</label>
