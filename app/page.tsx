@@ -176,63 +176,63 @@ export default function ElMacunLanding() {
       title: "Pozones Hueinahue, lago Maihue, Rupumeica", 
       type: "video",
       youtubeId: "-bOPp4dC6uk",
-      thumbnail: "/placeholder.svg?height=300&width=400" 
+      thumbnail: "/cinematic-aerial-landscape-drone-view-mountains-oc.jpg" 
     },
     { 
       category: "Naturaleza", 
       title: "Pozones río San Pedro, lago Riñihue", 
       type: "video",
       youtubeId: "lvTcfl1BgOM",
-      thumbnail: "/placeholder.svg?height=300&width=400" 
+      thumbnail: "/cinematic-aerial-landscape-drone-view-mountains-oc.jpg" 
     },
     { 
       category: "Naturaleza", 
       title: "Playa Quento, Chiloé", 
       type: "video",
       youtubeId: "i3JJwOjgcTI",
-      thumbnail: "/placeholder.svg?height=300&width=400" 
+      thumbnail: "/cinematic-aerial-landscape-drone-view-mountains-oc.jpg" 
     },
     { 
       category: "Ciudades", 
       title: "Llifen, Lago Ranco", 
       type: "video",
       youtubeId: "f5JfJTnm-Wo",
-      thumbnail: "/placeholder.svg?height=300&width=400" 
+      thumbnail: "/cinematic-aerial-landscape-drone-view-mountains-oc.jpg" 
     },
     { 
       category: "Turismo", 
       title: "Vapor Enco - Choshuenco", 
       type: "video",
       youtubeId: "Hlcdayke_pM",
-      thumbnail: "/placeholder.svg?height=300&width=400" 
+      thumbnail: "/cinematic-aerial-landscape-drone-view-mountains-oc.jpg" 
     },
     { 
       category: "Ciudades", 
       title: "Puerto Fuy, Lago Pirihueico", 
       type: "video",
       youtubeId: "oqXFLG4pjdM",
-      thumbnail: "/placeholder.svg?height=300&width=400" 
+      thumbnail: "/cinematic-aerial-landscape-drone-view-mountains-oc.jpg" 
     },
     { 
       category: "Ciudades", 
       title: "Lago Ranco", 
       type: "video",
       youtubeId: "9mj6eWNIfmQ",
-      thumbnail: "/placeholder.svg?height=300&width=400" 
+      thumbnail: "/cinematic-aerial-landscape-drone-view-mountains-oc.jpg" 
     },
     { 
       category: "Turismo", 
       title: "Palafitos de Gamboa, Castro", 
       type: "video",
       youtubeId: "k_22_2T7pHg",
-      thumbnail: "/placeholder.svg?height=300&width=400" 
+      thumbnail: "/cinematic-aerial-landscape-drone-view-mountains-oc.jpg" 
     },
     { 
       category: "Turismo", 
       title: "Iglesia patrimonial San Francisco de Castro", 
       type: "video",
       youtubeId: "p2M1Gm0mEPc",
-      thumbnail: "/placeholder.svg?height=300&width=400" 
+      thumbnail: "/cinematic-aerial-landscape-drone-view-mountains-oc.jpg" 
     },
   ]
 
@@ -319,7 +319,7 @@ export default function ElMacunLanding() {
       company: "Resort Costa Brava",
       content:
         "El trabajo de El Macún superó nuestras expectativas. Las imágenes aéreas de nuestro resort son simplemente espectaculares.",
-      avatar: "/placeholder.svg?height=60&width=60",
+      avatar: "/logo_el-macun.png",
     },
     {
       name: "Carlos Ruiz",
@@ -327,7 +327,7 @@ export default function ElMacunLanding() {
       company: "Bodas Únicas",
       content:
         "La cobertura aérea de nuestras bodas ha añadido una dimensión completamente nueva. Calidad cinematográfica excepcional.",
-      avatar: "/placeholder.svg?height=60&width=60",
+      avatar: "/logo_el-macun.png",
     },
     {
       name: "Ana Martín",
@@ -335,7 +335,7 @@ export default function ElMacunLanding() {
       company: "Estudio Martín",
       content:
         "Las inspecciones técnicas con dron nos han permitido detectar problemas que serían imposibles de ver desde tierra.",
-      avatar: "/placeholder.svg?height=60&width=60",
+      avatar: "/logo_el-macun.png",
     },
   ]
 
@@ -657,7 +657,7 @@ export default function ElMacunLanding() {
                             ) : (
                               <>
                                 <img
-                                  src={item.image || "/placeholder.svg"}
+                                  src={item.image || "/cinematic-aerial-landscape-drone-view-mountains-oc.jpg"}
                                   alt={item.title}
                                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                                 />
@@ -895,7 +895,7 @@ export default function ElMacunLanding() {
                     <p className="text-muted-foreground mb-6 italic">"{testimonial.content}"</p>
                     <div className="flex items-center">
                       <img
-                        src={testimonial.avatar || "/placeholder.svg"}
+                        src={testimonial.avatar || "/logo_el-macun.png"}
                         alt={testimonial.name}
                         className="w-12 h-12 rounded-full mr-4 object-cover"
                       />
