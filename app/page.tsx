@@ -1236,6 +1236,7 @@ export default function ElMacunLanding() {
         <Button
           size="lg"
           className="rounded-full shadow-lg hover:shadow-xl transition-shadow bg-green-500 hover:bg-green-600"
+          onClick={() => window.open('https://wa.me/56972172846?text=Hola%20El%20Macún,%20me%20interesa%20conocer%20más%20sobre%20sus%20servicios%20de%20filmación%20aérea', '_blank')}
         >
           <Phone className="w-5 h-5 mr-2" />
           WhatsApp
