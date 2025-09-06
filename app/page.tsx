@@ -120,14 +120,69 @@ export default function ElMacunLanding() {
   ]
 
   const portfolioItems = [
-    { category: "Naturaleza", title: "Costa Atlántica", image: "/placeholder.svg?height=300&width=400" },
-    { category: "Ciudades", title: "Skyline Urbano", image: "/placeholder.svg?height=300&width=400" },
-    { category: "Eventos", title: "Boda en Viñedo", image: "/placeholder.svg?height=300&width=400" },
-    { category: "Comercial", title: "Resort Costero", image: "/placeholder.svg?height=300&width=400" },
-    { category: "Naturaleza", title: "Montañas Nevadas", image: "/placeholder.svg?height=300&width=400" },
-    { category: "Ciudades", title: "Puerto Histórico", image: "/placeholder.svg?height=300&width=400" },
-    { category: "Eventos", title: "Festival Musical", image: "/placeholder.svg?height=300&width=400" },
-    { category: "Comercial", title: "Complejo Industrial", image: "/placeholder.svg?height=300&width=400" },
+    { 
+      category: "Naturaleza", 
+      title: "Pozones Hueinahue, lago Maihue, Rupumeica", 
+      type: "video",
+      youtubeId: "-bOPp4dC6uk",
+      thumbnail: "/placeholder.svg?height=300&width=400" 
+    },
+    { 
+      category: "Naturaleza", 
+      title: "Pozones río San Pedro, lago Riñihue", 
+      type: "video",
+      youtubeId: "lvTcfl1BgOM",
+      thumbnail: "/placeholder.svg?height=300&width=400" 
+    },
+    { 
+      category: "Naturaleza", 
+      title: "Playa Quento, Chiloé", 
+      type: "video",
+      youtubeId: "i3JJwOjgcTI",
+      thumbnail: "/placeholder.svg?height=300&width=400" 
+    },
+    { 
+      category: "Ciudades", 
+      title: "Llifen, Lago Ranco", 
+      type: "video",
+      youtubeId: "f5JfJTnm-Wo",
+      thumbnail: "/placeholder.svg?height=300&width=400" 
+    },
+    { 
+      category: "Turismo", 
+      title: "Vapor Enco - Choshuenco", 
+      type: "video",
+      youtubeId: "Hlcdayke_pM",
+      thumbnail: "/placeholder.svg?height=300&width=400" 
+    },
+    { 
+      category: "Ciudades", 
+      title: "Puerto Fuy, Lago Pirihueico", 
+      type: "video",
+      youtubeId: "oqXFLG4pjdM",
+      thumbnail: "/placeholder.svg?height=300&width=400" 
+    },
+    { 
+      category: "Ciudades", 
+      title: "Lago Ranco", 
+      type: "video",
+      youtubeId: "9mj6eWNIfmQ",
+      thumbnail: "/placeholder.svg?height=300&width=400" 
+    },
+    { 
+      category: "Turismo", 
+      title: "Palafitos de Gamboa, Castro", 
+      type: "video",
+      youtubeId: "k_22_2T7pHg",
+      thumbnail: "/placeholder.svg?height=300&width=400" 
+    },
+    { 
+      category: "Turismo", 
+      title: "Iglesia patrimonial San Francisco de Castro", 
+      type: "video",
+      youtubeId: "p2M1Gm0mEPc",
+      thumbnail: "/placeholder.svg?height=300&width=400" 
+    },
   ]
 
   const pricingPlans = [
@@ -509,20 +564,14 @@ export default function ElMacunLanding() {
                 Ciudades
               </TabsTrigger>
               <TabsTrigger 
-                value="Eventos"
+                value="Turismo"
                 className="relative transition-all duration-300 hover:bg-cyan-500/20 hover:text-cyan-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-sky-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-cyan-500/50 rounded-xl font-semibold text-lg h-full flex items-center justify-center flex-1 min-w-0"
               >
-                Eventos
-              </TabsTrigger>
-              <TabsTrigger 
-                value="Comercial"
-                className="relative transition-all duration-300 hover:bg-cyan-500/20 hover:text-cyan-300 hover:scale-105 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-sky-600 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-cyan-500/50 rounded-xl font-semibold text-lg h-full flex items-center justify-center flex-1 min-w-0"
-              >
-                Comercial
+                Turismo
               </TabsTrigger>
             </TabsList>
 
-            {["Naturaleza", "Ciudades", "Eventos", "Comercial"].map((category) => (
+            {["Naturaleza", "Ciudades", "Turismo"].map((category) => (
               <TabsContent key={category} value={category}>
                 <motion.div
                   initial="initial"
@@ -537,14 +586,35 @@ export default function ElMacunLanding() {
                       <motion.div key={index} variants={fadeInUp}>
                         <Card className="overflow-hidden group cursor-pointer hover:shadow-cyan-500/20 transition-all duration-300">
                           <div className="relative overflow-hidden">
-                            <img
-                              src={item.image || "/placeholder.svg"}
-                              alt={item.title}
-                              className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                              <Play className="w-12 h-12 text-white" />
-                            </div>
+                            {item.type === "video" ? (
+                              <div className="relative w-full h-64">
+                                <iframe
+                                  src={`https://www.youtube.com/embed/${item.youtubeId}?rel=0&modestbranding=1&showinfo=0&autoplay=0&controls=1`}
+                                  title={item.title}
+                                  className="w-full h-full object-cover"
+                                  frameBorder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  allowFullScreen
+                                />
+                                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                                  <div className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
+                                    <Play className="w-4 h-4" />
+                                    Reproducir
+                                  </div>
+                                </div>
+                              </div>
+                            ) : (
+                              <>
+                                <img
+                                  src={item.image || "/placeholder.svg"}
+                                  alt={item.title}
+                                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                  <Play className="w-12 h-12 text-white" />
+                                </div>
+                              </>
+                            )}
                           </div>
                           <CardContent className="p-4">
                             <h3 className="font-semibold text-lg">{item.title}</h3>
@@ -685,8 +755,8 @@ export default function ElMacunLanding() {
             </motion.h2>
             <motion.div variants={fadeInUp} className="mb-8">
               <img
-                src="/placeholder.svg?height=300&width=300"
-                alt="El Macún Team"
+                src="/logo_el-macun.png"
+                alt="El Macún Logo"
                 className="w-48 h-48 rounded-full mx-auto mb-6 object-cover"
               />
             </motion.div>
@@ -710,6 +780,7 @@ export default function ElMacunLanding() {
                   variant="outline" 
                   size="lg"
                   className="!border-cyan-500/50 !text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!border-cyan-500 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300"
+                  onClick={() => window.open('https://www.youtube.com/@ElMacun', '_blank')}
                 >
                   <Youtube className="w-5 h-5 mr-2" />
                   YouTube
@@ -725,6 +796,7 @@ export default function ElMacunLanding() {
                   variant="outline" 
                   size="lg"
                   className="!border-cyan-500/50 !text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!border-cyan-500 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300"
+                  onClick={() => window.open('https://www.instagram.com/chonquedelmonte/', '_blank')}
                 >
                   <Instagram className="w-5 h-5 mr-2" />
                   Instagram
@@ -833,15 +905,7 @@ export default function ElMacunLanding() {
               Convierte tu visión en imágenes cinematográficas que perduren para siempre
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-4">
-              <AnimatedButton 
-                variant="outline" 
-                size="lg" 
-                className="min-w-[200px]"
-              >
-                Agenda una llamada
-              </AnimatedButton>
-              
+            <div className="flex justify-center items-center pt-4">
               <AnimatedButton 
                 size="lg" 
                 onClick={() => scrollToSection("contacto")}
@@ -959,23 +1023,27 @@ export default function ElMacunLanding() {
               <div>
                 <h4 className="text-lg font-semibold mb-4">Síguenos</h4>
                 <div className="flex space-x-4">
-                  <Button variant="outline" size="sm" className="!border-cyan-500/50 !text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!border-cyan-500 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="!border-cyan-500/50 !text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!border-cyan-500 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300"
+                    onClick={() => window.open('https://www.instagram.com/chonquedelmonte/', '_blank')}
+                  >
                     <Instagram className="w-4 h-4 mr-2" />
                     Instagram
                   </Button>
-                  <Button variant="outline" size="sm" className="!border-cyan-500/50 !text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!border-cyan-500 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="!border-cyan-500/50 !text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!border-cyan-500 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300"
+                    onClick={() => window.open('https://www.youtube.com/@ElMacun', '_blank')}
+                  >
                     <Youtube className="w-4 h-4 mr-2" />
                     YouTube
                   </Button>
                 </div>
               </div>
 
-              <div className="bg-muted p-6 rounded-lg">
-                <h4 className="text-lg font-semibold mb-3">Área de cobertura</h4>
-                <div className="w-full h-64 bg-muted-foreground/10 rounded-lg flex items-center justify-center">
-                  <span className="text-muted-foreground">Mapa de cobertura</span>
-                </div>
-              </div>
             </motion.div>
           </div>
         </div>
@@ -991,10 +1059,20 @@ export default function ElMacunLanding() {
                 Filmación aérea profesional que transmite calma, belleza y grandeza natural.
               </p>
               <div className="flex space-x-4">
-                <Button variant="ghost" size="sm" className="!text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="!text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300"
+                  onClick={() => window.open('https://www.instagram.com/chonquedelmonte/', '_blank')}
+                >
                   <Instagram className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="sm" className="!text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="!text-cyan-300 hover:!bg-cyan-500 hover:!text-slate-900 hover:!shadow-lg hover:!shadow-cyan-500/30 !transition-all !duration-300"
+                  onClick={() => window.open('https://www.youtube.com/@ElMacun', '_blank')}
+                >
                   <Youtube className="w-4 h-4" />
                 </Button>
               </div>
@@ -1047,7 +1125,17 @@ export default function ElMacunLanding() {
           </div>
 
           <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-muted-foreground text-sm">© 2025 El Macún. Todos los derechos reservados.</p>
+            <p className="text-muted-foreground text-sm">
+              © 2025 El Macún. Todos los derechos reservados. | 
+              <a 
+                href="https://trauko.dev" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-cyan-300 hover:text-cyan-200 transition-colors duration-200 ml-1"
+              >
+                Desarrollado por trauko.dev
+              </a>
+            </p>
             <div className="flex space-x-6 text-sm text-muted-foreground mt-4 md:mt-0">
               <button>Términos de Servicio</button>
               <button>Política de Privacidad</button>
