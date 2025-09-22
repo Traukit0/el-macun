@@ -28,7 +28,6 @@ import {
   Youtube,
   ChevronDown,
 } from "lucide-react"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { AnimatedButton } from "@/components/animated-button"
 import { ModernCard } from "@/components/modern-card"
 
@@ -382,7 +381,6 @@ export default function ElMacunLanding() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex items-center space-x-4"
           >
-            <ThemeToggle />
             <div className="hidden md:block">
               <AnimatedButton onClick={() => scrollToSection("contacto")}>Cotiza tu vuelo</AnimatedButton>
             </div>
