@@ -436,8 +436,7 @@ export default function ElMacunLanding() {
             className="absolute inset-0 w-full h-full object-cover"
             poster="/cinematic-aerial-landscape-drone-view-mountains-oc.jpg"
           >
-            <source src="/hero-video-1080p.mp4" type="video/mp4" media="(min-width: 768px)" />
-            <source src="/hero-video-720p.mp4" type="video/mp4" media="(max-width: 767px)" />
+            <source src="/hero-video-720p.mp4" type="video/mp4" />
             {/* Fallback para navegadores que no soportan video */}
             <div
               className="w-full h-full bg-cover bg-center bg-no-repeat"
